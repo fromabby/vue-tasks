@@ -18,8 +18,7 @@ export default {
     },
     methods: {
         onClick() {
-            let show = false
-            this.$emit('toggle-add-task', !show)
+            this.$emit('btn-click')
         }
     }
 }

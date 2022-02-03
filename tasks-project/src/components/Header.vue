@@ -1,8 +1,8 @@
 <template>
     <header>
         <h1>{{title}}</h1>
-        <!-- <Button :text='!show ? "Add Task" : "Close"' :color='!show ? "green" : "blue"' @toggle-add-task="[$emit('toggle-add-task')]"/> -->
-        <Button :text='text' :color='color' @toggle-add-task="[$emit('toggle-add-task'), toggleButton()]"/>
+        <!-- <Button :text='!show ? "Add Task" : "Close"' :color='!show ? "green" : "blue"' @btn-click="[$emit('toggle-add-task')]"/> -->
+        <Button :text='text' :color='color' @btn-click="[$emit('toggle-add-task'), toggleButton()]"/>
     </header>
 </template>
 
