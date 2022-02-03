@@ -46,29 +46,24 @@ export default {
       },
       toggleAddTask() {
           this.showAddTask = !this.showAddTask
-      }
+      },
+      async fetchTasks() {
+          const res = await fetch('http://localhost:5000/tasks')
+
+          const data = await res.json()
+
+          return data
+      },
+      async fetchTask(id) {
+          const res = await fetch(`http://localhost:5000/tasks/${id}`)
+
+          const data = await res.json()
+
+          return data
+      },
   },
-  created() {
-    this.tasks = [
-      {
-        id: 1,
-        text: "App 1",
-        day: "March 1 at 2:30pm",
-        reminder: true,
-      },
-      {
-        id: 2,
-        text: "App 2",
-        day: "March 2 at 2:30pm",
-        reminder: true,
-      },
-      {
-        id: 3,
-        text: "App 3",
-        day: "March 3 at 2:30pm",
-        reminder: false,
-      },
-    ];
+  async created() {
+    this.tasks = await this.fetchTasks()
   },
 };
 </script>
