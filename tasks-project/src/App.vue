@@ -1,69 +1,34 @@
 <template>
   <div class="container">
-    <Header title="Task Tracker" @toggle-add-task="toggleAddTask" :show="showAddTask"/>
-    <div v-if="showAddTask">
-        <AddTask @add-task="addTask"/>
-    </div>
-    <Tasks :tasks="tasks" @delete-task="deleteTask" @toggle-reminder="toggleReminder"/>
+    <Header
+      title="Task Tracker"
+      @toggle-add-task="toggleAddTask"
+      :show="showAddTask"
+    />
+    <router-view :showAddTask="showAddTask"></router-view> <!-- pass prop to Home -->
+    <Footer/>
   </div>
 </template>
 
 <script>
 import Header from "./components/Header.vue";
-import Tasks from "./components/Tasks.vue";
-import AddTask from "./components/AddTask.vue";
+import Footer from "./components/Footer.vue";
 
 export default {
   name: "App",
   components: {
     Header,
-    Tasks,
-    AddTask
+    Footer
   },
   data() {
     return {
-      tasks: [],
-      showAddTask: false
+      showAddTask: false,
     };
   },
   methods: {
-      deleteTask(id) {
-          if(confirm('Are you sure?')) {
-            this.tasks = this.tasks.filter(task => task.id !== id)
-          }
-      },
-      toggleReminder(id) {
-        //   this.tasks.map(task => {
-        //       if(task.id === id) {
-        //           task.reminder = !task.reminder
-        //       }
-        //   })
-
-          this.tasks = this.tasks.map(task => task.id === id ? {...task, reminder: !task.reminder} : task)
-      },
-      addTask(task) {
-          this.tasks = [...this.tasks, task]
-      },
-      toggleAddTask() {
-          this.showAddTask = !this.showAddTask
-      },
-      async fetchTasks() {
-          const res = await fetch('http://localhost:5000/tasks')
-
-          const data = await res.json()
-
-          return data
-      },
-      async fetchTask(id) {
-          const res = await fetch(`http://localhost:5000/tasks/${id}`)
-
-          const data = await res.json()
-
-          return data
-      },
-  },
-  async created() {
-    this.tasks = await this.fetchTasks()
+    toggleAddTask() {
+      this.showAddTask = !this.showAddTask;
+    }
   },
 };
 </script>
